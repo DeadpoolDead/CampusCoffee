@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Coffee 3.0</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="localization">Localization</string>
+    <string name="search">Search</string>
+    <string name="suggest">Suggest</string>
+    <string name="map">Map</string>
 </resources>
