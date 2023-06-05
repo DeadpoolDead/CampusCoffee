@@ -1,17 +1,16 @@
 [
   {
-    "elementType": "geometry",
     "stylers": [
       {
-        "color": "#ebe3cd"
+        "visibility": "off"
       }
     ]
   },
   {
-    "elementType": "labels",
+    "elementType": "geometry",
     "stylers": [
       {
-        "visibility": "off"
+        "color": "#ebe3cd"
       }
     ]
   },
@@ -33,7 +32,6 @@
   },
   {
     "featureType": "administrative",
-    "elementType": "geometry",
     "stylers": [
       {
         "visibility": "off"
@@ -68,6 +66,15 @@
   },
   {
     "featureType": "administrative.land_parcel",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
     "elementType": "labels.text.fill",
     "stylers": [
       {
@@ -76,10 +83,10 @@
     ]
   },
   {
-    "featureType": "administrative.neighborhood",
+    "featureType": "landscape.man_made",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -89,14 +96,6 @@
     "stylers": [
       {
         "color": "#dfd2ae"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "stylers": [
-      {
-        "visibility": "off"
       }
     ]
   },
@@ -119,6 +118,22 @@
     ]
   },
   {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
     "featureType": "poi.park",
     "elementType": "geometry.fill",
     "stylers": [
@@ -137,20 +152,80 @@
     ]
   },
   {
-    "featureType": "road",
+    "featureType": "poi.school",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.school",
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#f5f1e6"
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.school",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.school",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.school",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.sports_complex",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.sports_complex",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
       }
     ]
   },
   {
     "featureType": "road",
-    "elementType": "labels.icon",
     "stylers": [
       {
         "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#f5f1e6"
       }
     ]
   },
@@ -205,14 +280,6 @@
     "stylers": [
       {
         "color": "#806b63"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "stylers": [
-      {
-        "visibility": "off"
       }
     ]
   },

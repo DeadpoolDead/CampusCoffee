@@ -9,12 +9,20 @@
 
     <Button
         android:id="@+id/btnsuggest"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="@string/suggest"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
+    <Button
+        android:id="@+id/btnrating"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ratings"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnsuggest" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
