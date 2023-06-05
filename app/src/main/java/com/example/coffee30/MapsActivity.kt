@@ -23,10 +23,7 @@ import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import kotlin.math.roundToInt
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -66,6 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json))
 
         val pando104 = LatLng(35.5723264427519, 129.19014215469363)
         val location_pando104: Location = Location("pando104")
