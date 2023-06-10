@@ -6,4 +6,19 @@
     <string name="suggest">Suggest</string>
     <string name="map">Map</string>
     <string name="ratings">Ratings</string>
+    <string name="done">Done</string>
+    <string name="pandorothy_104">Pandorothy 104</string>
+    <string name="dutch_and_bean">Dutch and Bean</string>
+    <string name="pandorothy_sub">Pandorothy SUB</string>
+    <string name="bread_co"><![CDATA[Bread&co]]></string>
+    <string name="caliu">CALIU</string>
+    <string name="book_cafe">Book cafe</string>
+    <string name="coffee">Coffee</string>
+    <string name="rating">Rating</string>
+    <string name="latte">Latte</string>
+    <string name="no_rating_yet">No rating yet</string>
+    <string name="americano">Americano</string>
+    <string name="dutch_and_bean2">Dutch and Bean</string>
+    <string name="return2">Return</string>
+    <string name="cof">Coffee</string>
 </resources>
