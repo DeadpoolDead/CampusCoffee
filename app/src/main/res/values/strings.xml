@@ -21,4 +21,9 @@
     <string name="dutch_and_bean2">Dutch and Bean</string>
     <string name="return2">Return</string>
     <string name="cof">Coffee</string>
+    <string name="coffee_shop">Coffee shop</string>
+    <string name="coffee23">Coffee</string>
+    <string name="coffee_shop2">Coffee shop</string>
+    <string name="price_won">Price(Won)</string>
+    <string name="distance_metres">Distance(metres)</string>
 </resources>

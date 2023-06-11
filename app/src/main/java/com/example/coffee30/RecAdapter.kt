@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecAdapter(var iList: List<Items>) : RecyclerView.Adapter<RecAdapter.ItemViewHolder>() {
+class RecAdapter(var iList: List<Items>, var clickListener: ClickListener) : RecyclerView.Adapter<RecAdapter.ItemViewHolder>() {
 
         inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val titles: TextView = itemView.findViewById(R.id.titles)
@@ -25,10 +25,18 @@ class RecAdapter(var iList: List<Items>) : RecyclerView.Adapter<RecAdapter.ItemV
         }
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+            val items = iList[position]
+
             holder.titles.text = iList[position].title
+            holder.itemView.setOnClickListener {
+                clickListener.ClickedItem(items)
+            }
         }
 
         override fun getItemCount(): Int {
             return iList.size
+        }
+        interface ClickListener{
+            fun ClickedItem(items : Items)
         }
 }

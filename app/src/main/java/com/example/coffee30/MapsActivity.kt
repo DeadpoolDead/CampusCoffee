@@ -1,6 +1,7 @@
 package com.example.coffee30
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -26,7 +27,7 @@ import com.google.android.material.card.MaterialCardView
 import java.util.*
 import kotlin.math.roundToInt
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickListener {
     private var sugbtn: Button? = null
     private lateinit var mMap: GoogleMap
     private var distance_pando104: Float? = null
@@ -43,6 +44,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var recView: RecyclerView
     private var iList = ArrayList<Items>()
     private lateinit var adapter: RecAdapter
+    private lateinit var donebtn: Button
+    private lateinit var McardView: MaterialCardView
+
+    private lateinit var pando_dict: Map<String, Int>
+    private lateinit var dbean_dict: Map<String, Int>
+    private lateinit var pandoSUB_dict: Map<String, Int>
+    private lateinit var breadco_dict: Map<String, Int>
+    private lateinit var caliu_dict: Map<String, Int>
+    private lateinit var bookcafe_dict: Map<String, Int>
+
+    private lateinit var menu: TableLayout
+
+    private lateinit var pando_price: TextView
+    private lateinit var pando_dist: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +67,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps)
         val sugbtn = findViewById<Button>(R.id.btnsuggest)
         val ratbtn = findViewById<Button>(R.id.btnrating)
-        val donebtn = findViewById<Button>(R.id.btndone)
+        donebtn = findViewById(R.id.btndone)
         val retbtn = findViewById<Button>(R.id.btnreturn)
         val constraintLayout: ConstraintLayout = findViewById(R.id.Maplayout)
-        val McardView: MaterialCardView = findViewById(R.id.Mview1)
+        McardView= findViewById(R.id.Mview1)
 
         searchview = findViewById(R.id.searchview1)
         recView = findViewById(R.id.recView)
@@ -63,7 +79,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         recView.layoutManager = LinearLayoutManager(this)
         addToList()
-        adapter = RecAdapter(iList)
+        adapter = RecAdapter(iList, this)
         recView.adapter = adapter
 
         searchview.setOnClickListener {
@@ -105,6 +121,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
+        menu = findViewById(R.id.Menu)
+
         val table1: TableLayout = findViewById(R.id.table1)
         val table2: TableLayout = findViewById(R.id.table2)
 
@@ -114,6 +132,174 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val shop4 = findViewById<Button>(R.id.shop4)
         val shop5 = findViewById<Button>(R.id.shop5)
         val shop6 = findViewById<Button>(R.id.shop6)
+
+        pando_price = findViewById(R.id.textViewm23)
+
+        pando_dist = findViewById(R.id.textViewm33)
+
+        val dbean_dict = mapOf<String, Int>(
+            "Dutch Coffee" to 3800,
+            "Dutch Americano" to 4300,
+            "Dutch Latte" to 4300,
+            "Hazelnut Dutch Latte" to 4800,
+            "Cube Latte" to 4300,
+            "Cube Condensed Milk Latte" to 4800,
+            "Cube Cinnamon Latte" to 4800,
+            "Espresso" to 3000,
+            "Americano" to 3000,
+            "Lungo/Ristretto" to 3300,
+            "Cafe Latte" to 3500,
+            "Cappucino" to 3500,
+            "Vanilla Latte" to 4000,
+            "Hazelnut Latte" to 4000,
+            "Caramel Macchiato" to 4300,
+            "Condensed Milk Latte" to 4300,
+            "Cafe Mocha" to 4300,
+            "Shot Toffee Nut Latte" to 4800,
+            "Cheese Latte" to 5000,
+            "Cacao Latte" to 3800,
+            "Green Tea Latte" to 4000,
+            "Sweet Potato Latte" to 4300,
+            "Cookie&Cream Latte" to 4300,
+            "Toffee Nut Latte" to 4300,
+            "Mint Chocolate Latte" to 4500,
+            "Citronade/Lemonade" to 4300,
+            "Grapefruit Ade" to 4500,
+            "Plain Yogurt" to 4800,
+            "Strawberry Yogurt" to 4800,
+            "Mango Yogurt" to 4800,
+            "Blueberry Yogurt" to 4800,
+            "Iced Tea" to 3000,
+            "Fruit Tea" to 3800,
+            "Blending Tea" to 3800,
+            "Milk Tea" to 4800
+        )
+        pando_dict = mapOf<String, Int>(
+            "Espresso" to 2000,
+            "Americano" to 2000,
+            "Hazelnut Americano" to 2300,
+            "Cafe Latte" to 2700,
+            "Dark/Java chip/Mint chocolate latte" to 3400,
+            "Vanilla/Hazelnut/Caramel Latte" to 2800,
+            "Dark/Java chip/Mint Mocha" to 3700,
+            "Caramel Macchiato" to 3100,
+            "Caramel Cafe Mocha" to 3300,
+            "Cafe Mocha" to 3700,
+            "Chocolate" to 2900,
+            "Green Tea Latte" to 3200,
+            "Purple Sweet Potato Latte" to 3200,
+            "Cookie&Cream Latte" to 3300,
+            "Grain Latte" to 3300,
+            "Dark/Java chip/Mint Chocolate" to 3200,
+            "Vanilla Latte" to 3300,
+            "Mango/Strawberry/Blueberry Latte" to 3400,
+            "Plain Yogurt" to 3800,
+            "Strawberry Yogurt" to 4300,
+            "Mango Yogurt" to 4300,
+            "Blueberry Yogurt" to 4300,
+            "Grapefruit/Lemon/Citron Yogurt" to 3800,
+            "Organic Herb Tea" to 2800,
+            "Black Tea" to 2800,
+            "Peach Ice Tea" to 2500,
+            "Fruit Tea" to 2800,
+            "Blending Tea" to 3200,
+            "Milk Tea" to 3400,
+            "Strawberry/Blueberry/Mango Ade" to 2800,
+            "Green Grape/Grapefruit ade" to 2800,
+            "Grapefruit/Lemon/Citron Ade" to 2800,
+            "Strawberry/Kiwi/Banana" to 3300,
+            "Strawberry Banana/Kiwi Banana" to 3500,
+            "Black Bubble Tea" to 3800,
+            "Fruit Bubble Tea" to 3800,
+            "Bubble Tea (Grain/Cookie and Cream/Sweet Potato)" to 3800,
+            "Vanilla Frappe" to 3800,
+            "Cookie&Cream Frappe" to 3800,
+            "Choco Frape" to 3800,
+            "Grain Frappe" to 3800,
+            "Purple Sweet Potato Frappe" to 3800,
+            "Mocha PanFrappe" to 3900,
+            "Caramel PanFrappe" to 3900,
+            "Choco PanFrappe" to 3900,
+            "Vanilla PanFrappe" to 3900,
+            "Cookie and Cream PanFrappe" to 3900
+        )
+        //val breadco_dict = mapOf<String, Int>()
+        val caliu_dict = mapOf<String, Int>(
+            "CALIU Latte" to 4800,
+            "Sweer corn Latte" to 5500,
+            "Puff Cream Latte" to 5500,
+            "Turmeric Latte" to 5500,
+            "Americano" to 3000,
+            "Decaf Cold Brew" to 3800,
+            "Caffe latte" to 4000,
+            "Vanilla Latte" to 4300,
+            "Condensed Milk Latte" to 4500,
+            "Toffee Nut Latte" to 4500,
+            "Ice Cream Latte" to 5000,
+            "Sweet Matcha Latte" to 4500,
+            "Real Choco Latte" to 4500,
+            "Real Strawberry Latte" to 4500,
+            "Real Mango Latte" to 4500,
+            "Real Blueberry Latte" to 4500,
+            "Milk Tea" to 4500,
+            "Ice Tea" to 3300,
+            "Lemonade" to 4500,
+            "Grapefruit Ade" to 4500,
+            "Orangeade" to 4500,
+            "Plain Yogurt Smoothie" to 4500,
+            "Strawberry Yogurt Smoothie" to 4500,
+            "Mango Yogurt Smoothie" to 4500,
+            "Blueberry Yogurt Smoothie" to 4500,
+            "Chamomile" to 3500,
+            "Peppermint" to 3500,
+            "Earl Grey" to 3500,
+            "Rooibos" to 3500,
+            "Hibiscus" to 3500,
+            "Honey Grapefruit Black Tea" to 4000,
+            "Strawberry Juice" to 4700,
+            "Kiwi Juice" to 4700,
+            "Pineapple Juice" to 4700
+        )
+        val bookcafe_dict = mapOf<String, Int>(
+            "Sweet Red Bean Latte" to 4800,
+            "Jujube Latte" to 4800,
+            "Green Tea Latte" to 4800,
+            "Chocholate Latte" to 4800,
+            "Sweet Potato Latte" to 4800,
+            "Black Seame Latte" to 4800,
+            "5 Whole Grains Soy Latte" to 4800,
+            "Ginseng Sprout Latte" to 6000,
+            "Misugaru Latte" to 4800,
+            "Milk Tea" to 4800,
+            "Espresso" to 3300,
+            "Americano" to 3300,
+            "Latte" to 3800,
+            "Cappucino" to 3800,
+            "Soy Latte" to 4300,
+            "Vanilla Latte" to 4300,
+            "Hazelnut Latte" to 4300,
+            "Cafe Mocha" to 4300,
+            "Caramel Macchiato" to 4300,
+            "Decaf Drip Coffee" to 3800,
+            "Affogato" to 5300,
+            "Lemonade" to 4800,
+            "Grapefruit Ade" to 4800,
+            "Green Grape Ade" to 4800,
+            "Jeju Tangerine" to 4800,
+            "Chemomile" to 4800,
+            "Peppermint" to 4800,
+            "Korean Ginseong Sprout Tea" to 5500,
+            "Chamomile Relaxer" to 4800,
+            "Peach Iced Tea" to 3500,
+            "Lemon Tea" to 4800,
+            "Grapefruit Tea" to 4800,
+            "Yuja Tea" to 4800,
+            "Omija Tea" to 4800,
+            "Plum Tea" to 4800,
+            "Jujube Tea" to 4800,
+            "Ginger Lemon Tea" to 4800,
+            "Yulmu Tea" to 4800
+        )
 
 
         mapFragment = findViewById<MapView>(R.id.mapView)
@@ -189,13 +375,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             shop5.visibility = View.INVISIBLE
             shop6.visibility = View.INVISIBLE
             McardView.visibility = View.VISIBLE
+            menu.visibility = View.INVISIBLE
 
         }
-
-
-
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -332,14 +514,126 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addToList() {
-        iList.add(Items("Latte"))
+        iList.add(Items("CALIU Latte"))
+        iList.add(Items("Sweer corn Latte"))
+        iList.add(Items("Puff Cream Latte"))
+        iList.add(Items("Turmeric Latte"))
         iList.add(Items("Americano"))
-        iList.add(Items("Cappucino"))
+        iList.add(Items("Decaf Cold Brew"))
+        iList.add(Items("Caffe latte"))
+        iList.add(Items("Vanilla Latte"))
+        iList.add(Items("Condensed Milk Latte"))
+        iList.add(Items("Toffee Nut Latte"))
+        iList.add(Items("Ice Cream Latte"))
+        iList.add(Items("Sweet Matcha Latte"))
+        iList.add(Items("Real Choco Latte"))
+        iList.add(Items("Real Strawberry Latte"))
+        iList.add(Items("Real Mango Latte"))
+        iList.add(Items("Real Blueberry Latte"))
+        iList.add(Items("Milk Tea"))
+        iList.add(Items("Ice Tea"))
+        iList.add(Items("Lemonade"))
+        iList.add(Items("Grapefruit Ade"))
+        iList.add(Items("Orangeade"))
+        iList.add(Items("Plain Yogurt Smoothie"))
+        iList.add(Items("Strawberry Yogurt Smoothie"))
+        iList.add(Items("Mango Yogurt Smoothie"))
+        iList.add(Items("Blueberry Yogurt Smoothie"))
+        iList.add(Items("Chamomile"))
+        iList.add(Items("Peppermint"))
+        iList.add(Items("Earl Grey"))
+        iList.add(Items("Rooibos"))
+        iList.add(Items("Hibiscus"))
+        iList.add(Items("Honey Grapefruit Black Tea"))
+        iList.add(Items("Strawberry Juice"))
+        iList.add(Items("Kiwi Juice"))
+        iList.add(Items("Pineapple Juice"))
+        iList.add(Items("Sweet Red Bean Latte"))
+        iList.add(Items("Jujube Latte"))
+        iList.add(Items("Green Tea Latte"))
+        iList.add(Items("Chocholate Latte"))
+        iList.add(Items("Sweet Potato Latte"))
+        iList.add(Items("Black Seame Latte"))
+        iList.add(Items("5 Whole Grains Soy Latte"))
+        iList.add(Items("Ginseng Sprout Latte"))
+        iList.add(Items("Misugaru Latte"))
         iList.add(Items("Espresso"))
+        iList.add(Items("Latte"))
+        iList.add(Items("Cappucino"))
+        iList.add(Items("Soy Latte"))
         iList.add(Items("Hazelnut Latte"))
         iList.add(Items("Cafe Mocha"))
         iList.add(Items("Caramel Macchiato"))
+        iList.add(Items("Decaf Drip Coffee"))
         iList.add(Items("Affogato"))
+        iList.add(Items("Green Grape Ade"))
+        iList.add(Items("Jeju Tangerine"))
+        iList.add(Items("Chemomile"))
+        iList.add(Items("Korean Ginseong Sprout Tea"))
+        iList.add(Items("Chamomile Relaxer"))
+        iList.add(Items("Peach Iced Tea"))
+        iList.add(Items("Lemon Tea"))
+        iList.add(Items("Grapefruit Tea"))
+        iList.add(Items("Yuja Tea"))
+        iList.add(Items("Omija Tea"))
+        iList.add(Items("Plum Tea"))
+        iList.add(Items("Jujube Tea"))
+        iList.add(Items("Ginger Lemon Tea"))
+        iList.add(Items("Yulmu Tea"))
+        iList.add(Items("Dutch Coffee"))
+        iList.add(Items("Dutch Americano"))
+        iList.add(Items("Dutch Latte"))
+        iList.add(Items("Hazelnut Dutch Latte"))
+        iList.add(Items("Cube Latte"))
+        iList.add(Items("Cube Condensed Milk Latte"))
+        iList.add(Items("Cube Cinnamon Latte"))
+        iList.add(Items("Lungo/Ristretto"))
+        iList.add(Items("Cafe Latte"))
+        iList.add(Items("Shot Toffee Nut Latte"))
+        iList.add(Items("Cheese Latte"))
+        iList.add(Items("Cacao Latte"))
+        iList.add(Items("Cookie&Cream Latte"))
+        iList.add(Items("Mint Chocolate Latte"))
+        iList.add(Items("Citronade/Lemonade"))
+        iList.add(Items("Plain Yogurt"))
+        iList.add(Items("Strawberry Yogurt"))
+        iList.add(Items("Mango Yogurt"))
+        iList.add(Items("Blueberry Yogurt"))
+        iList.add(Items("Iced Tea"))
+        iList.add(Items("Fruit Tea"))
+        iList.add(Items("Blending Tea"))
+        iList.add(Items("Hazelnut Americano"))
+        iList.add(Items("Dark/Java chip/Mint chocolate latte"))
+        iList.add(Items("Vanilla/Hazelnut/Caramel Latte"))
+        iList.add(Items("Dark/Java chip/Mint Mocha"))
+        iList.add(Items("Caramel Cafe Mocha"))
+        iList.add(Items("Chocolate"))
+        iList.add(Items("Purple Sweet Potato Latte"))
+        iList.add(Items("Grain Latte"))
+        iList.add(Items("Dark/Java chip/Mint Chocolate"))
+        iList.add(Items("Mango/Strawberry/Blueberry Latte"))
+        iList.add(Items("Grapefruit/Lemon/Citron Yogurt"))
+        iList.add(Items("Organic Herb Tea"))
+        iList.add(Items("Black Tea"))
+        iList.add(Items("Peach Ice Tea"))
+        iList.add(Items("Strawberry/Blueberry/Mango Ade"))
+        iList.add(Items("Green Grape/Grapefruit ade"))
+        iList.add(Items("Grapefruit/Lemon/Citron Ade"))
+        iList.add(Items("Strawberry/Kiwi/Banana"))
+        iList.add(Items("Strawberry Banana/Kiwi Banana"))
+        iList.add(Items("Black Bubble Tea"))
+        iList.add(Items("Fruit Bubble Tea"))
+        iList.add(Items("Bubble Tea (Grain/Cookie and Cream/Sweet Potato)"))
+        iList.add(Items("Vanilla Frappe"))
+        iList.add(Items("Cookie&Cream Frappe"))
+        iList.add(Items("Choco Frape"))
+        iList.add(Items("Grain Frappe"))
+        iList.add(Items("Purple Sweet Potato Frappe"))
+        iList.add(Items("Mocha PanFrappe"))
+        iList.add(Items("Caramel PanFrappe"))
+        iList.add(Items("Choco PanFrappe"))
+        iList.add(Items("Vanilla PanFrappe"))
+        iList.add(Items("Cookie and Cream PanFrappe"))
     }
 
     override fun onStart() {
@@ -347,35 +641,46 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.onStart()
 
     }
-
     override fun onResume() {
         super.onResume()
         mapFragment.onResume()
     }
-
     override fun onStop() {
         super.onStop()
         mapFragment.onStop()
     }
-
     override fun onPause() {
         super.onPause()
         mapFragment.onPause()
     }
-
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
         mapFragment.onSaveInstanceState(outState)
     }
-
     override fun onLowMemory() {
         super.onLowMemory()
         mapFragment.onLowMemory()
     }
-
-
     override fun onDestroy() {
         super.onDestroy()
         mapFragment.onDestroy()
     }
+    override fun ClickedItem(items: Items) {
+        recView.visibility = View.INVISIBLE
+        McardView.visibility = View.INVISIBLE
+        donebtn.visibility = View.VISIBLE
+        menu.visibility = View.VISIBLE
+        searchview.isIconified = true
+
+        for (i in pando_dict.keys) {
+            if(items.title == i){
+                recView.visibility = View.INVISIBLE
+                searchview.isIconified = true
+                pando_price.text = pando_dict[i].toString()
+                pando_dist.text = distance_pando104!!.roundToInt().toString()
+            }
+        }
+
+    }
+
 }
