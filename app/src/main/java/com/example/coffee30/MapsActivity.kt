@@ -49,15 +49,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
 
     private lateinit var pando_dict: Map<String, Int>
     private lateinit var dbean_dict: Map<String, Int>
-    private lateinit var pandoSUB_dict: Map<String, Int>
     private lateinit var breadco_dict: Map<String, Int>
     private lateinit var caliu_dict: Map<String, Int>
     private lateinit var bookcafe_dict: Map<String, Int>
 
     private lateinit var menu: TableLayout
 
-    private lateinit var pando_price: TextView
-    private lateinit var pando_dist: TextView
+    private lateinit var pando104_price: TextView
+    private lateinit var pando104_dist: TextView
+    private lateinit var pandoSUB_price: TextView
+    private lateinit var pandoSUB_dist: TextView
+    private lateinit var dbean_price: TextView
+    private lateinit var dbean_dist: TextView
+    private lateinit var breadco_price: TextView
+    private lateinit var breadco_dist: TextView
+    private lateinit var caliu_price: TextView
+    private lateinit var caliu_dist: TextView
+    private lateinit var bookcafe_price: TextView
+    private lateinit var bookcafe_dist: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +129,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
 
         }
 
-
         menu = findViewById(R.id.Menu)
 
         val table1: TableLayout = findViewById(R.id.table1)
@@ -133,11 +141,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
         val shop5 = findViewById<Button>(R.id.shop5)
         val shop6 = findViewById<Button>(R.id.shop6)
 
-        pando_price = findViewById(R.id.textViewm23)
+        pando104_price = findViewById(R.id.textViewm23)
+        pando104_dist = findViewById(R.id.textViewm33)
+        pandoSUB_price = findViewById(R.id.textViewm24)
+        pandoSUB_dist = findViewById(R.id.textViewm34)
+        dbean_price = findViewById(R.id.textViewm22)
+        dbean_dist = findViewById(R.id.textViewm32)
+        caliu_price = findViewById(R.id.textViewm26)
+        caliu_dist = findViewById(R.id.textViewm36)
+        bookcafe_price = findViewById(R.id.textViewm25)
+        bookcafe_dist = findViewById(R.id.textViewm35)
+        breadco_price = findViewById(R.id.textViewm27)
+        breadco_dist = findViewById(R.id.textViewm37)
 
-        pando_dist = findViewById(R.id.textViewm33)
 
-        val dbean_dict = mapOf<String, Int>(
+        dbean_dict = mapOf<String, Int>(
             "Dutch Coffee" to 3800,
             "Dutch Americano" to 4300,
             "Dutch Latte" to 4300,
@@ -223,8 +241,44 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
             "Vanilla PanFrappe" to 3900,
             "Cookie and Cream PanFrappe" to 3900
         )
-        //val breadco_dict = mapOf<String, Int>()
-        val caliu_dict = mapOf<String, Int>(
+        breadco_dict = mapOf<String, Int>(
+            "Dutch Coffee" to 3800,
+            "Dutch Americano" to 4300,
+            "Dutch Latte" to 4300,
+            "Hazelnut Dutch Latte" to 4800,
+            "Cube Latte" to 4300,
+            "Cube Condensed Milk Latte" to 4800,
+            "Cube Cinnamon Latte" to 4800,
+            "Espresso" to 3000,
+            "Americano" to 3000,
+            "Lungo/Ristretto" to 3300,
+            "Cafe Latte" to 3500,
+            "Cappucino" to 3500,
+            "Vanilla Latte" to 4000,
+            "Hazelnut Latte" to 4000,
+            "Caramel Macchiato" to 4300,
+            "Condensed Milk Latte" to 4300,
+            "Cafe Mocha" to 4300,
+            "Shot Toffee Nut Latte" to 4800,
+            "Cheese Latte" to 5000,
+            "Cacao Latte" to 3800,
+            "Green Tea Latte" to 4000,
+            "Sweet Potato Latte" to 4300,
+            "Cookie&Cream Latte" to 4300,
+            "Toffee Nut Latte" to 4300,
+            "Mint Chocolate Latte" to 4500,
+            "Citronade/Lemonade" to 4300,
+            "Grapefruit Ade" to 4500,
+            "Plain Yogurt" to 4800,
+            "Strawberry Yogurt" to 4800,
+            "Mango Yogurt" to 4800,
+            "Blueberry Yogurt" to 4800,
+            "Iced Tea" to 3000,
+            "Fruit Tea" to 3800,
+            "Blending Tea" to 3800,
+            "Milk Tea" to 4800
+        )
+        caliu_dict = mapOf<String, Int>(
             "CALIU Latte" to 4800,
             "Sweer corn Latte" to 5500,
             "Puff Cream Latte" to 5500,
@@ -260,7 +314,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
             "Kiwi Juice" to 4700,
             "Pineapple Juice" to 4700
         )
-        val bookcafe_dict = mapOf<String, Int>(
+        bookcafe_dict = mapOf<String, Int>(
             "Sweet Red Bean Latte" to 4800,
             "Jujube Latte" to 4800,
             "Green Tea Latte" to 4800,
@@ -301,15 +355,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
             "Yulmu Tea" to 4800
         )
 
-
         mapFragment = findViewById<MapView>(R.id.mapView)
-        //val mapFragment = supportFragmentManager.findViewById<Button>(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync(this)
         mapFragment.onCreate(savedInstanceState)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
         constraintLayout.visibility = View.VISIBLE
-
         ratbtn.setOnClickListener {
             constraintLayout.visibility = View.INVISIBLE
             sugbtn.visibility = View.INVISIBLE
@@ -376,6 +426,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
             shop6.visibility = View.INVISIBLE
             McardView.visibility = View.VISIBLE
             menu.visibility = View.INVISIBLE
+            pando104_price.text = ""
+            pando104_dist.text = ""
+            pandoSUB_price.text = ""
+            pandoSUB_dist.text = ""
+            dbean_price.text = ""
+            dbean_dist.text = ""
+            caliu_price.text = ""
+            caliu_dist.text = ""
+            bookcafe_price.text = ""
+            bookcafe_dist.text = ""
 
         }
     }
@@ -676,8 +736,64 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, RecAdapter.ClickLi
             if(items.title == i){
                 recView.visibility = View.INVISIBLE
                 searchview.isIconified = true
-                pando_price.text = pando_dict[i].toString()
-                pando_dist.text = distance_pando104!!.roundToInt().toString()
+                pando104_price.text = pando_dict[i].toString()
+                pando104_dist.text = distance_pando104!!.roundToInt().toString()
+                pandoSUB_price.text = pando_dict[i].toString()
+                pandoSUB_dist.text = distance_pando104!!.roundToInt().toString()
+                break
+            } else{
+                pando104_price.text = getString(R.string.notfound)
+                pando104_dist.text = getString(R.string.notfound)
+                pandoSUB_price.text = getString(R.string.notfound)
+                pandoSUB_dist.text = getString(R.string.notfound)
+            }
+        }
+        for (i in dbean_dict.keys) {
+            if(items.title == i){
+                recView.visibility = View.INVISIBLE
+                searchview.isIconified = true
+                dbean_price.text = dbean_dict[i].toString()
+                dbean_dist.text = distance_dbean!!.roundToInt().toString()
+                break
+            } else{
+                dbean_price.text = getString(R.string.notfound)
+                dbean_dist.text = getString(R.string.notfound)
+            }
+        }
+        for (i in caliu_dict.keys) {
+            if(items.title == i){
+                recView.visibility = View.INVISIBLE
+                searchview.isIconified = true
+                caliu_price.text = caliu_dict[i].toString()
+                caliu_dist.text = distance_caliu!!.roundToInt().toString()
+                break
+            } else{
+                caliu_price.text = getString(R.string.notfound)
+                caliu_dist.text = getString(R.string.notfound)
+            }
+        }
+        for (i in bookcafe_dict.keys) {
+            if(items.title == i){
+                recView.visibility = View.INVISIBLE
+                searchview.isIconified = true
+                bookcafe_price.text = bookcafe_dict[i].toString()
+                bookcafe_dist.text = distance_bookcafe!!.roundToInt().toString()
+                break
+            } else{
+                bookcafe_price.text = getString(R.string.notfound)
+                bookcafe_dist.text = getString(R.string.notfound)
+            }
+        }
+        for (i in breadco_dict.keys) {
+            if(items.title == i){
+                recView.visibility = View.INVISIBLE
+                searchview.isIconified = true
+                breadco_price.text = breadco_dict[i].toString()
+                breadco_dist.text = distance_breadco!!.roundToInt().toString()
+                break
+            }else{
+                breadco_price.text = getString(R.string.notfound)
+                breadco_dist.text = getString(R.string.notfound)
             }
         }
 

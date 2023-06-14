@@ -26,4 +26,5 @@
     <string name="coffee_shop2">Coffee shop</string>
     <string name="price_won">Price(Won)</string>
     <string name="distance_metres">Distance(metres)</string>
+    <string name="notfound">Not found</string>
 </resources>
